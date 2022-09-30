@@ -1,4 +1,4 @@
-#  [MakeShift 4039](https://nodejs.org/)  - FTC Anybot 2022 Hardware Configuration
+#  [MakeShift 4039](https://4039.ca)  - FTC Anybot 2022 Hardware Configuration
 
 The purpose of this document is the detail the hardware configuration present on the ControlHub for use with the code provided in the repository.
 
