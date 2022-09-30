@@ -1,0 +1,352 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+<block type="procedures_defnoreturn" id="OpN8!1beqW{8Bw6M/?m+" deletable="false" x="50" y="50">
+<field name="NAME">runOpMode</field>
+<comment pinned="false" h="45" w="532">This function is executed when this Op Mode is selected from the Driver Station.</comment>
+<statement name="STACK">
+<block type="comment" id="2E)2A*`b^PiWrgwVLCzD">
+<field name="COMMENT">Reverse one of the drive motors.</field>
+<next>
+<block type="dcMotor_setProperty_Direction" id="eq?6z=8[X(p{)!kj=ljm">
+<field name="IDENTIFIER">driveMotorRightAsDcMotor</field>
+<field name="PROP">Direction</field>
+<comment pinned="false" h="103" w="377">You will have to determine which motor to reverse for your robot.  In this example, the right motor was reversed so that positive applied power makes it move the robot in the forward direction.</comment>
+<data>{"IDENTIFIER":"driveMotorRight"}</data>
+<value name="VALUE">
+<shadow type="dcMotor_typedEnum_direction" id="fA5KX5L@6hypglpOh=^Z">
+<field name="DIRECTION">REVERSE</field>
+</shadow>
+</value>
+<next>
+<block type="servo_setProperty_Direction" id="P$JZoHb)+}fP^^7A{jFw">
+<field name="IDENTIFIER">gripperServoRightAsServo</field>
+<field name="PROP">Direction</field>
+<data>{"IDENTIFIER":"gripperServoRight"}</data>
+<value name="VALUE">
+<shadow type="servo_typedEnum_direction" id="A@[G!2dI~koVajZrt~*E">
+<field name="DIRECTION">REVERSE</field>
+</shadow>
+</value>
+<next>
+<block type="linearOpMode_waitForStart" id=":K8^U;yjvZn8aWa~t|#1">
+<next>
+<block type="controls_if" id="0#o7qH*u*qfz$Bq_V/`k">
+<value name="IF0">
+<block type="linearOpMode_opModeIsActive" id="[bChm|`3)2ph$xioy@{("/>
+</value>
+<statement name="DO0">
+<block type="comment" id=":*~E^;jympAIAK*1RqqM">
+<field name="COMMENT">Main Run Code</field>
+<next>
+<block type="controls_whileUntil" id=";?u-rJ#FN3IEUo%rzP0!">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="-(|WoGbw`fofYl;9=5+0"/>
+</value>
+<statement name="DO">
+<block type="comment" id="j%/]x0!:SV!7p5sYtU9W">
+<field name="COMMENT">Assign Controller 1 Joysticks to each drive motor (Tank Drive)</field>
+<next>
+<block type="dcMotor_setDualProperty" id="?fu!mk[evxtjh1mAGC7J">
+<field name="PROP">Power</field>
+<field name="IDENTIFIER1">driveMotorLeftAsDcMotor</field>
+<field name="IDENTIFIER2">driveMotorRightAsDcMotor</field>
+<comment pinned="false" h="101" w="394">The Y axis of a joystick ranges from -1 in its topmost position to +1 in its bottommost position.  We negate this value so that the topmost position corresponds to maximum forward power.</comment>
+<data>{"IDENTIFIER1":"driveMotorLeft","IDENTIFIER2":"driveMotorRight"}</data>
+<value name="VALUE1">
+<shadow type="math_number" id="xm^!xz;E%A,_X6P[I?kY">
+<field name="NUM">1</field>
+</shadow>
+<block type="gamepad_getProperty_Number" id="TiQ?GW+aIf^v|bI#0HKc">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">LeftStickY</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<value name="VALUE2">
+<shadow type="math_number" id="uY}|nHkeXKe^U}8i.{%1">
+<field name="NUM">1</field>
+</shadow>
+<block type="gamepad_getProperty_Number" id="%hLr:R^XEGT#!okUP6gZ">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">RightStickY</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<next>
+<block type="comment" id="%5J}5SUYlN_!b~doW9FH">
+<field name="COMMENT">Encoder reset button. If start is pressed, reset the encoder and put them back in run mode</field>
+<next>
+<block type="comment" id="Dzy;%SLf0YmT|!GTNZN5">
+<field name="COMMENT">This logic is useful for path based auto. Push the robot, record the values, reset encoder</field>
+<next>
+<block type="controls_if" id="cn+R(QtT~U$%3pP6YNuz">
+<value name="IF0">
+<block type="gamepad_getProperty_Boolean" id=":W2z{pfR)`RTKxP|x:Iw">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">Start</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<statement name="DO0">
+<block type="dcMotor_setDualProperty_RunMode" id="kz`^BxyAlm=Sq#+lf@;y">
+<field name="PROP">Mode</field>
+<field name="IDENTIFIER1">driveMotorLeftAsDcMotor</field>
+<field name="IDENTIFIER2">driveMotorRightAsDcMotor</field>
+<data>{"IDENTIFIER1":"driveMotorLeft","IDENTIFIER2":"driveMotorRight"}</data>
+<value name="VALUE1">
+<shadow type="dcMotor_typedEnum_runMode" id="llQ=+}md.o40K:~3k*3S">
+<field name="RUN_MODE">STOP_AND_RESET_ENCODER</field>
+</shadow>
+</value>
+<value name="VALUE2">
+<shadow type="dcMotor_typedEnum_runMode" id="uc!1xzV:#ac*$9[51?up">
+<field name="RUN_MODE">STOP_AND_RESET_ENCODER</field>
+</shadow>
+</value>
+<next>
+<block type="dcMotor_setDualProperty_RunMode" id="nAKG-Yp#5.y0ild9u`dX">
+<field name="PROP">Mode</field>
+<field name="IDENTIFIER1">driveMotorLeftAsDcMotor</field>
+<field name="IDENTIFIER2">driveMotorRightAsDcMotor</field>
+<data>{"IDENTIFIER1":"driveMotorLeft","IDENTIFIER2":"driveMotorRight"}</data>
+<value name="VALUE1">
+<shadow type="dcMotor_typedEnum_runMode" id="DYUm6I*CvVQJnO_8j[PO">
+<field name="RUN_MODE">RUN_WITHOUT_ENCODER</field>
+</shadow>
+</value>
+<value name="VALUE2">
+<shadow type="dcMotor_typedEnum_runMode" id="YT~ywA`8y`qx:$/B`zvG">
+<field name="RUN_MODE">RUN_WITHOUT_ENCODER</field>
+</shadow>
+</value>
+</block>
+</next>
+</block>
+</statement>
+<next>
+<block type="comment" id="xM)Xr/7N{Wgx6wQK_=n,">
+<field name="COMMENT">Open Gripper commands. (Tune values on a per robot basis)</field>
+<next>
+<block type="controls_if" id="?1o:{Gt{OZaI5X1%#bb(">
+<value name="IF0">
+<block type="gamepad_getProperty_Boolean" id="6Rs$r+Xi/Auel0WC^l5g">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">LeftBumper</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<statement name="DO0">
+<block type="servo_setProperty_Number" id="~hKo-}hSUVLZ+=mG,8c1">
+<field name="IDENTIFIER">gripperServoLeftAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"gripperServoLeft"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="#qFB=AjAxV^Ntt=cnT-K">
+<field name="NUM">0.6</field>
+</shadow>
+</value>
+<next>
+<block type="servo_setProperty_Number" id="Rhf:Mtdms$]BeO=UM1Dn">
+<field name="IDENTIFIER">gripperServoRightAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"gripperServoRight"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="G(v*${{i!l:Y}Lom*Ljg">
+<field name="NUM">0.4</field>
+</shadow>
+</value>
+</block>
+</next>
+</block>
+</statement>
+<next>
+<block type="comment" id="I7@xb7o`ZYDL3aUCI*/E">
+<field name="COMMENT">Close Gripper commands. (Tune values on a per robot basis)</field>
+<next>
+<block type="controls_if" id="=k:}R3SKoIrEhGintb*b">
+<value name="IF0">
+<block type="gamepad_getProperty_Boolean" id="A[n{z2CLB+-[rL2t:_J8">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">RightBumper</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<statement name="DO0">
+<block type="servo_setProperty_Number" id="lI{wV9r~N}FVw4PywZrr">
+<field name="IDENTIFIER">gripperServoLeftAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"gripperServoLeft"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="_`YtisqhLB2`]Si+~r)O">
+<field name="NUM">0.25</field>
+</shadow>
+</value>
+<next>
+<block type="servo_setProperty_Number" id="`DU,w5z%Ui{wJ|2KvPu]">
+<field name="IDENTIFIER">gripperServoRightAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"gripperServoRight"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="LSIEOirWZEt!;[Qyb%=R">
+<field name="NUM">0.25</field>
+</shadow>
+</value>
+</block>
+</next>
+</block>
+</statement>
+<next>
+<block type="comment" id="cz,v/CpqhAt(Sr!:ds(Y">
+<field name="COMMENT">Write useful data to DriverStation</field>
+<next>
+<block type="telemetry_addNumericData" id="W+1aE{c:|#=LR8]UBy47">
+<value name="KEY">
+<block type="text" id="p=:S|#QapB@Y:~07]L~]">
+<field name="TEXT">Left Pow</field>
+</block>
+</value>
+<value name="NUMBER">
+<block type="dcMotor_getProperty_Number" id=")l?bt;SeT)jw=H;h7K0G">
+<field name="IDENTIFIER">driveMotorLeftAsDcMotor</field>
+<field name="PROP">Power</field>
+<data>{"IDENTIFIER":"driveMotorLeft"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData" id="fnTUd?),(XEI:}]:f}mN">
+<value name="KEY">
+<block type="text" id="aDU}G0=A7pmv3WM:ODA)">
+<field name="TEXT">Right Pow</field>
+</block>
+</value>
+<value name="NUMBER">
+<block type="dcMotor_getProperty_Number" id="a.6ieWX3JB?^^b14yx0p">
+<field name="IDENTIFIER">driveMotorRightAsDcMotor</field>
+<field name="PROP">Power</field>
+<data>{"IDENTIFIER":"driveMotorRight"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="(*W_fJ03}95rTtNO2M5l">
+<value name="KEY">
+<shadow type="text" id="y{[_,iFg.(JzTO=QH3gm">
+<field name="TEXT">Left Current Pos</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="`%b$~Wc@d/rfdzU-`eAb">
+<field name="NUM">123</field>
+</shadow>
+<block type="dcMotor_getProperty_Number" id="6DT.nn5XdLyF2]{s@t*2">
+<field name="IDENTIFIER">driveMotorLeftAsDcMotor</field>
+<field name="PROP">CurrentPosition</field>
+<data>{"IDENTIFIER":"driveMotorLeft"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="Sc`~Pip!5-H$$,[y+,w(">
+<value name="KEY">
+<shadow type="text" id="=(CpxYIN,+v55EtO`SgI">
+<field name="TEXT">Right Current Pos</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="G+j3,mTnJ388jii%4`UJ">
+<field name="NUM">123</field>
+</shadow>
+<block type="dcMotor_getProperty_Number" id="7oDzQV[Ts4b?)c|Y,TXD">
+<field name="IDENTIFIER">driveMotorRightAsDcMotor</field>
+<field name="PROP">CurrentPosition</field>
+<data>{"IDENTIFIER":"driveMotorRight"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="~${q6dLdckxz|2}cn2ai">
+<value name="KEY">
+<shadow type="text" id="M6l_:]+roA%-F1uA=UyH">
+<field name="TEXT">Right Gripper Pos</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="N*)NEqk,t!}Ivqqk7!SP">
+<field name="NUM">123</field>
+</shadow>
+<block type="servo_getProperty_Number" id="b0_(kO(+2!y6]L!qB8g1">
+<field name="IDENTIFIER">gripperServoRightAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"gripperServoRight"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="D*X.RAPCMJGI`y%Xtw{i">
+<value name="KEY">
+<shadow type="text" id="7S8Iz?HnJni|QSrF.1c@">
+<field name="TEXT">Left Gripper Pos</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="x(%O~]MG8DCLvVKEQ#iU">
+<field name="NUM">123</field>
+</shadow>
+<block type="servo_getProperty_Number" id="}Ih77SprEpK#~}qK{3U)">
+<field name="IDENTIFIER">gripperServoLeftAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"gripperServoLeft"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_update" id="Il/_Kv^vY42Foa}=N4Ix"/>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</xml>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Extra>
+<OpModeMeta flavor="TELEOP" group="" autoTransition="" />
+<Enabled value="true" />
+</Extra>
