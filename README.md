@@ -1,5 +1,19 @@
 #  [MakeShift 4039](https://4039.ca)  - FTC Anybot 2022 Software
 
+# What is an Anybot?
+In the spirit of the Robonaut's FRC "Everybot", MakeShift's goal was to provide
+a starting point for rookie or low-resource FTC teams by building and
+documenting a simple but effective Freight Frenzy robot. We've limited
+ourselves to components in the kit plus &lt;$100 in purchased parts.  Only basic
+hand tools are required for fabrication and assembly.  Game analysis, CAD,
+basic code, and more are all publicly available.
+
+# Additional Resources
+This repository hosts the code for the Anybot. The rest of the documentation is
+available on a google drive [HERE](https://drive.google.com/drive/folders/1BJFW_bpIrWweuW6tcFUbEHEwslD9NAR0?usp=sharing).
+
+
+# About This Repository
 This repository contains the the block-based, as well as java code for the MakeShift 4039 2022 Anybot. 
 
 The TeleOp code provided allows the robot to drive in Tank Mode (Both joysticks on the controller) and open and close the gripper using the bumper buttons on the controller.
